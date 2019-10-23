@@ -65,7 +65,7 @@ public class GameActivity extends AppCompatActivity {
                 gameBoard.makeMove(coordinates, 'X');
                 image.setImageResource(R.drawable.basketball);
                 playerDisplay.setImageResource(R.drawable.boxer);
-                playerTurnText.setText(player2Name + " turn");
+                playerTurnText.setText(player2Name + "'s turn");
                 if(gameBoard.isWinner('X')){
                     playerDisplay.setImageResource(R.drawable.basketball);
                     playerTurnText.setText(player1Name + " is the winner");
@@ -86,7 +86,7 @@ public class GameActivity extends AppCompatActivity {
             if(gameBoard.isValidMove(coordinates)){
                 gameBoard.makeMove(coordinates, 'O');
                 image.setImageResource(R.drawable.boxer);
-                playerTurnText.setText(player1Name + " turn");
+                playerTurnText.setText(player1Name + "'s turn");
                 playerDisplay.setImageResource(R.drawable.basketball);
                 if(gameBoard.isWinner('O')){
                     playerDisplay.setImageResource(R.drawable.boxer);
@@ -101,6 +101,9 @@ public class GameActivity extends AppCompatActivity {
                 toast.show();
             }
         }
+        //checks to see if the game is scratch
+        //if it is then ask the user if they want to keep playing or quit
+        //disables buttons
         if(gameBoard.isTie(turnCount)){
             playerTurnText.setText("It appears that the game has scratched, please select if you want to play again or quit");
             disableButtons();
@@ -109,6 +112,11 @@ public class GameActivity extends AppCompatActivity {
         Log.d(TAG,"turncount: " + turnCount);
     }
 
+    /**
+     * disables the images so a user cannot click on them
+     * called when there is a winner or if a game is tied
+     * gets each ImageView and disables them
+     */
     public void disableButtons(){
         ImageView image1 = (ImageView)findViewById(R.id.button1);
         ImageView image2 = (ImageView)findViewById(R.id.button2);
@@ -130,9 +138,17 @@ public class GameActivity extends AppCompatActivity {
         image9.setEnabled(false);
     }
 
+    /**
+     * play again function listener
+     * if playAgainButton is clicked then
+     * the tictactoe board is cleared
+     *
+     */
     public void onPlayAgainOnClickFunction(){
         final String TAG = "in clicked";
         final Button playAgainButton = (Button)findViewById(R.id.playAgainButton);
+        final TextView playerTurnText = (TextView) findViewById(R.id.playerDisplay);
+        final ImageView playerDisplay = (ImageView)findViewById(R.id.playerImage);
         playAgainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -140,12 +156,18 @@ public class GameActivity extends AppCompatActivity {
                 playAgainClicked();
                 gameBoard.clearBoard(3);
                 turnCount = 0;
-                TextView playerTurnText = (TextView) findViewById(R.id.playerDisplay);
+                playerTurnText.setText(player1Name + "'s turn");
+                playerDisplay.setImageResource(R.drawable.basketball);
                 Log.d(TAG, "player1name :" + player1Name + " player2Name: " + player2Name);
             }
         });
     }
 
+    /**
+     * called in playAgainButtonListener
+     * clears the ImageViews by setting the drawable to null
+     * and reenables each image
+     */
     public void playAgainClicked(){
         ImageView image1 = (ImageView)findViewById(R.id.button1);
         ImageView image2 = (ImageView)findViewById(R.id.button2);
@@ -176,6 +198,9 @@ public class GameActivity extends AppCompatActivity {
         image9.setEnabled(true);
     }
 
+    /**
+     * quits the activity if quit button is clicked and returns to the game activity
+     */
     public void quitButtonClicked(){
         Button quitButton  = (Button)findViewById(R.id.quitButton);
         quitButton.setOnClickListener(new View.OnClickListener() {
