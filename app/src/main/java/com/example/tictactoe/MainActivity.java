@@ -22,6 +22,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view){
                     Intent intent = new Intent(MainActivity.this, GameActivity.class);
+                        //gets the players names
+                        //checks to see if the players names are blank or if they are the same
+                        //then starts the GameActivity
                         String playerOneName = player1Name.getText().toString();
                         String playerTwoName = player2Name.getText().toString();
                         if(playerOneName.equals("") && playerTwoName.equals("")){

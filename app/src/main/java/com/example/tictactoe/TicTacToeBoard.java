@@ -31,6 +31,11 @@ public class TicTacToeBoard {
             }
         }
     }
+
+    /**
+     * resets the board
+     * @param userSize
+     */
     public void clearBoard(int userSize){
         N = userSize;
         grid = new Cell[N][N];
