@@ -33,7 +33,7 @@ public class GameActivity extends AppCompatActivity {
         quitButtonClicked();
         Log.d(TAG, "player1name :" + player1Name + " player2Name: " + player2Name);
         image.setImageResource(R.drawable.basketball);
-        playerTurnText.setText(player1Name + " turn");
+        playerTurnText.setText(player1Name + "'s turn");
     }
 
     /**
@@ -158,6 +158,7 @@ public class GameActivity extends AppCompatActivity {
                 turnCount = 0;
                 playerTurnText.setText(player1Name + "'s turn");
                 playerDisplay.setImageResource(R.drawable.basketball);
+                playAgainButton.setVisibility(View.INVISIBLE);
                 Log.d(TAG, "player1name :" + player1Name + " player2Name: " + player2Name);
             }
         });
